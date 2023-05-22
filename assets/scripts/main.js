@@ -88,15 +88,13 @@ async function getRecipes() {
         const url = await fetch(RECIPE_URLS[i]);
         const recipe = await url.json();
         recipeArr.push(recipe);
+        if (i == RECIPE_URLS.length -1){
+          saveRecipesToStorage(recipeArr);
+          resolve(recipeArr);
+        }
       }
-      catch(error){
-        console.error(error)
-      }
-      try{
-        saveRecipesToStorage(recipeArr);
-        resolve(recipeArr);
-      }
-      catch(error){
+      catch (error){
+        console.error(error);
         reject(error);
       }
     }
